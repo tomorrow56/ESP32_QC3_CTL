@@ -30,14 +30,21 @@ ESP32_QC3_CTL qc3(DP_H, DP_L, DM_H, DM_L, VBUS_DET, OUT_EN);
 // グローバル変数の宣言（WebUI.hでexternとして宣言済み）
 
 void setup() {
+  pinMode(OUT_EN, INPUT_PULLDOWN);
+  digitalWrite(OUT_EN, LOW);
+  pinMode(OUT_EN, OUTPUT);
+
   auto cfg = M5.config();
   M5.begin(cfg);
   // シリアルモニタを開始
   Serial.begin(115200);
 
   //FastLED初期設定
-  FastLED.addLeds<WS2811, LED_DATA_PIN, GRB>(leds, NUM_LEDS);
+  FastLED.addLeds<WS2812, LED_DATA_PIN, GRB>(leds, NUM_LEDS);
   FastLED.setBrightness(20);
+  leds[0] = CRGB::Blue;
+  FastLED.show();
+  delay(200);
 
   // QC3ライブラリの初期化
   qc3.begin();
@@ -86,6 +93,15 @@ void setup() {
 }
 
 void loop() {
+  M5.update();
+  if (M5.BtnA.wasPressed()) {
+    isOn = !isOn;
+    digitalWrite(OUT_EN, isOn ? HIGH : LOW);
+    Serial.println("Button toggle: " + String(isOn ? "ON" : "OFF"));
+  }
+
+  server.handleClient();
+
   // ON/OFF状態に応じてLEDを制御
   if(isOn == true){
     leds[0] = CRGB::Green;

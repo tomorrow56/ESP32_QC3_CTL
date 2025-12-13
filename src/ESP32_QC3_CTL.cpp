@@ -11,18 +11,27 @@
 #include "ESP32_QC3_CTL.h"
 
 #if defined(ARDUINO_ARCH_ESP32)
- #include <driver/adc.h>
+ #if defined(ESP_IDF_VERSION_MAJOR) && (ESP_IDF_VERSION_MAJOR < 5)
+  #include <driver/adc.h>
+  #include <esp_adc_cal.h>
+  #if defined(__has_include)
+   #if __has_include(<esp_adc/adc_oneshot.h>)
+    #include <esp_adc/adc_oneshot.h>
+   #endif
+  #endif
+ #endif
  #include <esp_err.h>
- #include <esp_adc_cal.h>
 #endif
 
-#if defined(ARDUINO_ARCH_ESP32)
+#if defined(ARDUINO_ARCH_ESP32) && defined(ESP_IDF_VERSION_MAJOR) && (ESP_IDF_VERSION_MAJOR < 5)
 static bool getAdcUnitFromPin(uint8_t pin, adc_unit_t *unit) {
-#if defined(ESP_IDF_VERSION_MAJOR)
+#if defined(ESP_IDF_VERSION_MAJOR) && defined(__has_include)
+ #if __has_include(<esp_adc/adc_oneshot.h>)
     adc_channel_t channel;
     if (adc_oneshot_io_to_channel((gpio_num_t)pin, unit, &channel) == ESP_OK) {
         return true;
     }
+ #endif
 #endif
 
 #if defined(CONFIG_IDF_TARGET_ESP32)
@@ -147,6 +156,7 @@ float ESP32_QC3_CTL::readVoltage(uint16_t Vread) {
     float Vdc;
 
 #if defined(ARDUINO_ARCH_ESP32)
+ #if defined(ESP_IDF_VERSION_MAJOR) && (ESP_IDF_VERSION_MAJOR < 5)
     static bool isCalibrated = false;
     static esp_adc_cal_characteristics_t adcChars;
     if (!isCalibrated) {
@@ -160,6 +170,9 @@ float ESP32_QC3_CTL::readVoltage(uint16_t Vread) {
         isCalibrated = true;
     }
     Vdc = (float)esp_adc_cal_raw_to_voltage(Vread, &adcChars) / 1000.0f;
+ #else
+    Vdc = ((float)Vread / 4095.0f) * 3.3f;
+ #endif
 #else
     Vdc = 0.03f + ((float)Vread / 4096.0f) * 3.3f;
 #endif
@@ -189,6 +202,7 @@ float ESP32_QC3_CTL::readVoltage(uint8_t pin, uint16_t Vread) {
     float Vdc;
 
 #if defined(ARDUINO_ARCH_ESP32)
+ #if defined(ESP_IDF_VERSION_MAJOR) && (ESP_IDF_VERSION_MAJOR < 5)
     adc_unit_t unit = ADC_UNIT_1;
     const bool hasUnit = getAdcUnitFromPin(pin, &unit);
     if (hasUnit) {
@@ -232,6 +246,10 @@ float ESP32_QC3_CTL::readVoltage(uint8_t pin, uint16_t Vread) {
     }
 
     Vdc = readVoltage(Vread);
+ #else
+    (void)pin;
+    Vdc = readVoltage(Vread);
+ #endif
 #else
     (void)pin;
     Vdc = readVoltage(Vread);

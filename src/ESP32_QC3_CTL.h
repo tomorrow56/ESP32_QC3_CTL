@@ -14,7 +14,9 @@
 #include <Arduino.h>
 
 #if defined(ARDUINO_ARCH_ESP32)
- #include <driver/adc.h>
+ #if defined(ESP_IDF_VERSION_MAJOR) && (ESP_IDF_VERSION_MAJOR < 5)
+  #include <driver/adc.h>
+ #endif
 #endif
 
 /**
