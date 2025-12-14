@@ -4,6 +4,12 @@ ESP32用のQuickCharge 3.0制御ライブラリです。
 
 このリポジトリには、M5Stack ATOM S3向けのWebUIサンプル（APモードで操作）も含まれます。
 
+## ハードウェア設計情報
+
+本プロジェクトで使用するハードウェア設計情報はOSHWLabで公開しています。
+
+[QuickCharge adapter for M5ATOMS3](https://oshwlab.com/tomorrow56/m5atom_lipo_copy_copy)
+
 ## インストール
 
 - Arduino IDEのスケッチブックフォルダ配下の`libraries`に、この`ESP32_QC3_CTL`フォルダを配置してください。
