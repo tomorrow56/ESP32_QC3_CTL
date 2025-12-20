@@ -117,7 +117,8 @@ ESP32用のQuickCharge 3.0制御ライブラリです。
 
 `examples/AtomS3_QC3_WebUI/AtomS3_QC3_WebUI.ino` は、ATOM S3がアクセスポイント(AP)を立ち上げ、ブラウザから出力電圧とON/OFFを操作できるサンプルです。
 
-![AtomS3_QC3_WebUI](img/atomS3_qc3_webui.png)
+<img src="img/atomS3_qc3_webui.png" alt="AtomS3_QC3_WebUI" width="300px">
+
 
 ### 接続
 
