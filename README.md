@@ -155,7 +155,31 @@ WebUI側は `/state` を定期的に取得して表示を同期します。
 起動直後に `OUT_EN` が一瞬ONになる現象を軽減するため、`setup()`冒頭で `INPUT_PULLDOWN` を経由してLOWへ固定してから出力化しています。
 ブートローダ段階の挙動まで含めて完全に抑止したい場合は、`OUT_EN` にプルダウン抵抗を追加する等のハード対策も検討してください。
 
-## examples
+## フォルダ構成
 
-- `examples/DetectCharger/DetectCharger.ino`
-- `examples/AtomS3_QC3_WebUI/AtomS3_QC3_WebUI.ino`
+```
+ESP32_QC3_CTL/
+├── src/                           # ライブラリ本体
+│   ├── ESP32_QC3_CTL.h           # ヘッダファイル
+│   └── ESP32_QC3_CTL.cpp         # 実装ファイル
+├── examples/                      # サンプルスケッチ
+│   ├── DetectCharger/
+│   │   └── DetectCharger.ino      # 充電器検出の基本サンプル
+│   ├── AtomS3_QC3_WebUI/
+│   │   ├── AtomS3_QC3_WebUI.ino   # ATOM S3 WebUIサンプル（APモード）
+│   │   ├── WebUI.cpp             # WebUI実装
+│   │   └── PinDefinitions.h      # ピン定義
+│   ├── M5Stack_QC3_test/
+│   │   └── M5Stack_QC3_test.ino   # M5Stack基本テストスケッチ
+│   └── M5Stack_QC3trigger/
+│       ├── M5Stack_QC3trigger.ino # M5Stackボタン操作GUI（推奨）
+│       └── README.md              # 詳細ドキュメント
+├── img/                          # 画像リソース
+├── LICENSE                       # ライセンスファイル
+├── README.md                     # 本ファイル
+└── library.properties            # Arduinoライブラリ情報
+```
+
+## ライセンス
+
+Copyright(c) @tomorrow56 all rights reserved
