@@ -63,4 +63,5 @@ WebUIは以下のエンドポイントを利用します。
 ## ライセンス
 
 Copyright (c) 2025 @tomorrow56
+
 MIT License

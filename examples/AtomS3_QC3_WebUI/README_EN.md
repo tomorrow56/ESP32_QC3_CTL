@@ -63,4 +63,5 @@ For complete suppression including bootloader phase behavior, consider hardware 
 ## License
 
 Copyright (c) 2025 @tomorrow56
+
 MIT License
