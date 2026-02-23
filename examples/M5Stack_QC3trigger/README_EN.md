@@ -97,4 +97,5 @@ float vi_2A  = 2.85;    // Current detection voltage at 2A
 
 ## License
 
-Copyright(c) @tomorrow56 all rights reserved
+Copyright (c) 2025 @tomorrow56
+MIT License

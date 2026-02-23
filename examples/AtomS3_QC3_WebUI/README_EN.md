@@ -59,3 +59,8 @@ If your actual voltage divider resistors differ, adjust this factor to match you
 
 To mitigate the phenomenon where `OUT_EN` momentarily turns ON immediately after startup, the code first sets it to LOW via `INPUT_PULLDOWN` at the beginning of `setup()` before switching to output mode.
 For complete suppression including bootloader phase behavior, consider hardware measures such as adding a pull-down resistor to `OUT_EN`.
+
+## License
+
+Copyright (c) 2025 @tomorrow56
+MIT License

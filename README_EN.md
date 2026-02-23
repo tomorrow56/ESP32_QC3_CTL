@@ -181,4 +181,5 @@ ESP32_QC3_CTL/
 
 ## License
 
-Copyright(c) @tomorrow56 all rights reserved
+Copyright (c) 2025 @tomorrow56
+MIT License

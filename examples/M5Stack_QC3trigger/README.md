@@ -97,4 +97,5 @@ float vi_2A  = 2.85;    // 電流検出 2A時の電圧
 
 ## ライセンス
 
-Copyright(c) @tomorrow56 all rights reserved
+Copyright (c) 2025 @tomorrow56
+MIT License
